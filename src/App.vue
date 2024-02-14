@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { useUserProvider } from '@/hooks/contexts/user'
 import Nav from './components/nav.vue'
 
@@ -7,13 +7,15 @@ useUserProvider()
 </script>
 
 <template>
-  <header>
-    <div>
-      <Nav />
-    </div>
-  </header>
+  <div class="p-4">
+    <header>
+      <div>
+        <Nav />
+      </div>
+    </header>
 
-  <RouterView />
+    <RouterView />
+  </div>
 </template>
 
 <style scoped></style>

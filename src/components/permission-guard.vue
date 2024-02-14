@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import type { Permission } from '@/types/auth.types'
+import { computed } from 'vue'
+import { Permission } from '@/types/auth.types'
 
-const props = defineProps<{
-  userPermissions: Permission[]
+type Props = {
+  userPermissions?: readonly Permission[]
   accessPermissions: Permission[]
-}>()
+}
 
-const hasPermissions = props.accessPermissions.every((p) => props.userPermissions.includes(p))
+const props = withDefaults(defineProps<Props>(), {
+  userPermissions: () => []
+})
+
+const hasPermissions = computed(() =>
+  props.accessPermissions.every((p) => props.userPermissions.includes(p))
+)
 </script>
 
 <template>
