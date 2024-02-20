@@ -8,6 +8,4 @@ import Users from '../components/users.vue'
   </main>
 </template>
 
-<style>
-
-</style>
+<style></style>

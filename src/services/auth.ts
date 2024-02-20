@@ -31,9 +31,7 @@ export const authService: AuthService = {
       return null
     }
 
-    const tokenPayload: TokenPayload = JSON.parse(
-      Buffer.from(this.token.split('.')[1], 'base64').toString()
-    )
+    const tokenPayload: TokenPayload = JSON.parse(atob(this.token.split('.')[1]))
 
     return {
       id: tokenPayload.sub,

@@ -2,13 +2,14 @@
 import { useLogin } from '@/api-hooks/use-login'
 import { loginFormSchema } from '@/forms/login'
 import { FormKit, FormKitSchema } from '@formkit/vue'
+import type {LoginApiParams} from "@/api/types";
+import {useUserContext} from "@/hooks/contexts/user";
 
-console.log({ loginFormSchema })
+const { updateUser } = useUserContext();
+const { mutate: login } = useLogin(updateUser);
 
-const { mutate: login } = useLogin()
-
-const handleSubmit = (data: any) => {
-  console.log({ data })
+const handleSubmit = (data: LoginApiParams) => {
+  login(data);
 }
 </script>
 
