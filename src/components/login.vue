@@ -2,22 +2,23 @@
 import { useLogin } from '@/api-hooks/use-login'
 import { loginFormSchema } from '@/forms/login'
 import { FormKit, FormKitSchema } from '@formkit/vue'
-import type {LoginApiParams} from "@/api/types";
-import {useUserContext} from "@/hooks/contexts/user";
+import type { LoginApiParams } from '@/api/types'
+import { computed } from 'vue'
 
-const { updateUser } = useUserContext();
-const { mutate: login } = useLogin(updateUser);
+const { mutate: login, isPending } = useLogin()
+const submitLabel = computed(() => (isPending.value ? 'Login ...' : 'Login'))
 
-const handleSubmit = (data: LoginApiParams) => {
-  login(data);
+const handleSubmit = async (data: LoginApiParams) => {
+  login(data)
 }
 </script>
 
 <template>
-  <h1 class="my-2 text-3xl">Login</h1>
+  <h1 class="my-2 text-3xl">Login <span v-if="isPending">Loading...</span></h1>
 
-  <FormKit type="form" @submit="handleSubmit">
+  <FormKit type="form" @submit="handleSubmit" :actions="false">
     <FormKitSchema :schema="loginFormSchema" />
+    <FormKit type="submit" :label="submitLabel" />
   </FormKit>
 </template>
 
