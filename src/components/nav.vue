@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { RouterLink, useRoute, useRouter } from 'vue-router'
-import { authService } from '@/services/auth'
+import { RouterLink } from 'vue-router'
 import { useUserContext } from '@/hooks/contexts/user'
 import PermissionGuard from '@/components/permission-guard.vue'
 import { Permission } from '@/types/auth.types'
 import { ABOUT_PAGE, HOME_PAGE, LOGIN_PAGE, USERS_PAGE } from '@/constants/route-names'
+import { useLogout } from '@/api-hooks/use-logout'
+import { computed } from 'vue'
 
-const { data: user, clearUser } = useUserContext()
-const router = useRouter()
-const route = useRoute()
+const { data: user } = useUserContext()
+const { mutate: logout, isPending } = useLogout()
+const logoutLabel = computed(() => (isPending.value ? 'Logout...' : 'Logout'))
 
-const logout = () => {
-  authService.removeToken()
-  clearUser()
-  if (route.meta?.permissions) {
-    router.push(HOME_PAGE)
+const handleLogout = () => {
+  if (typeof user.value?.id !== 'number') {
+    throw new Error('Logout: user id should exist')
   }
+  logout({ userId: user.value?.id })
 }
 </script>
 
@@ -34,7 +34,7 @@ const logout = () => {
         :to="{ name: LOGIN_PAGE }"
         >Login</RouterLink
       >
-      <button v-if="user" @click="logout" class="text-red-800">Logout</button>
+      <button v-if="user" @click="handleLogout" class="text-red-800">{{ logoutLabel }}</button>
     </div>
     <div v-if="user">{{ user.name }}</div>
   </nav>

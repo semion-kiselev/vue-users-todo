@@ -14,7 +14,7 @@ const handleSubmit = async (data: LoginApiParams) => {
 </script>
 
 <template>
-  <h1 class="my-2 text-3xl">Login <span v-if="isPending">Loading...</span></h1>
+  <h1 class="my-2 text-3xl">Login</h1>
 
   <FormKit type="form" @submit="handleSubmit" :actions="false">
     <FormKitSchema :schema="loginFormSchema" />
