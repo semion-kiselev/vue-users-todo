@@ -3,6 +3,11 @@ export enum Permission {
   UM = 'UM'
 }
 
+export type PermissionItem = {
+  id: string;
+  name: string;
+};
+
 export type TokenPayload = {
   sub: number
   username: string

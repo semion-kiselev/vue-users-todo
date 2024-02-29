@@ -2,7 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/@common/views/home-view.vue'
 import { Permission } from '@/auth/types'
 import { authService } from '@/auth/services/auth'
-import { ABOUT_PAGE, HOME_PAGE, LOGIN_PAGE, USERS_PAGE } from '@/@common/constants/route-names'
+import {
+  ABOUT_PAGE,
+  HOME_PAGE,
+  LOGIN_PAGE,
+  USER_CREATE_PAGE,
+  USER_UPDATE_PAGE,
+  USERS_PAGE
+} from '@/@common/constants/route-names'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,13 +27,25 @@ const router = createRouter({
     {
       path: '/login',
       name: LOGIN_PAGE,
-      component: () => import('../../auth/views/login-view.vue')
+      component: () => import('@/auth/views/login-view.vue')
     },
     {
       path: '/users',
       name: USERS_PAGE,
       meta: { permissions: [Permission.UR] },
       component: () => import('@/users/views/users-view.vue')
+    },
+    {
+      path: '/users/create',
+      name: USER_CREATE_PAGE,
+      meta: { permissions: [Permission.UM] },
+      component: () => import('@/users/views/user-create-view.vue')
+    },
+    {
+      path: '/users/:id/update',
+      name: USER_UPDATE_PAGE,
+      meta: { permissions: [Permission.UM] },
+      component: () => import('@/users/views/user-update-view.vue')
     }
   ]
 })

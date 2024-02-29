@@ -10,7 +10,6 @@ export const loginFormSchema = [
     $formkit: 'password',
     name: 'password',
     label: 'Password',
-    validation: 'required',
-    value: 'ckv7879245'
+    validation: 'required'
   }
 ]
