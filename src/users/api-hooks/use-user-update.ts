@@ -12,7 +12,7 @@ export const useUserUpdate = () => {
       toast.error('Could not update user')
     },
     onSuccess: () => {
-      toast.success('User was successfully created')
+      toast.success('User was successfully updated')
     }
   })
 }

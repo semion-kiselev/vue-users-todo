@@ -21,7 +21,7 @@ export const userFormSchema = [
     $formkit: 'select',
     name: 'permissions',
     multiple: true,
-    options: { UM: "Manage Users", UR: "Read Users" },
+    options: '$permissionsOptions',
     validation: 'required',
   }
 ]
